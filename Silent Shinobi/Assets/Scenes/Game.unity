@@ -1322,7 +1322,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5561b8331c7fc3948be7db986dd5b177, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1386,6 +1386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87131ba08ac23fd4990d24a91b3e835d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parkourActions:
+  - {fileID: 11400000, guid: 3516ec7663c625a4da6bf7fd20119439, type: 2}
+  - {fileID: 11400000, guid: 73834f19e0161eb42b517299a5abce3f, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
