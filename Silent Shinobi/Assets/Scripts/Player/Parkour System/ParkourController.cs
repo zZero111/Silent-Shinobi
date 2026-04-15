@@ -61,10 +61,15 @@ public class ParkourController : MonoBehaviour
             
                 if (action.EnableTargetMatching)
                     MatchTarget(action);
+
+                if (animator.IsInTransition(0) && timer > 0.5f)
+                    break;
             
             yield return null;
         }
 
+       yield return new  WaitForSeconds(action.PostActionDelay);
+       
         playerController.SetControl(true);
         inAction = false;
     }
@@ -75,7 +80,7 @@ public class ParkourController : MonoBehaviour
         if (animator.isMatchingTarget || animState.IsTag("Transition")) return;
         if (animator.IsInTransition(0)) return; 
         
-        animator.MatchTarget(action.MatchPos, transform.rotation, action.MatchBodyPart, new MatchTargetWeightMask(new Vector3(0, 1, 0), 0), action.MatchStartTime, action.MatchTargetTime);
+        animator.MatchTarget(action.MatchPos, transform.rotation, action.MatchBodyPart, new MatchTargetWeightMask(action.MatchPosWeight, 0), action.MatchStartTime, action.MatchTargetTime);
     }
 
 }
