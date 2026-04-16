@@ -9,7 +9,7 @@ public class EnvironmentScanner : MonoBehaviour
     [SerializeField] float heightRayLength = 5;
     [SerializeField] LayerMask obstacleLayer;
 
-    public ObstacleHitData ObstacleCheck()
+    public ObstacleHitData ObstacleCheck() // Its checking  for if there is a object infront of the player 
     {
         var hitData = new ObstacleHitData();
 
@@ -18,7 +18,7 @@ public class EnvironmentScanner : MonoBehaviour
 
         Debug.DrawRay(forwardOrigin, transform.forward * forwardRayLength, (hitData.forwardHitFound) ? Color.red : Color.white);
 
-        if (hitData.forwardHitFound)
+        if (hitData.forwardHitFound) // Measures the Heights of the object and if a object has been found
         {
             var heightOrigin = hitData.forwardHit.point + Vector3.up * heightRayLength;
             hitData.heightHitFound = Physics.Raycast(heightOrigin, Vector3.down, out hitData.heightHit, heightRayLength, obstacleLayer);

@@ -19,7 +19,7 @@ public class ParkourController : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
-    private void Update()
+    private void Update() // Checking if the object is possible to climb and to start the appropriate animation
     {
         if (Input.GetButton("Jump") && !inAction)
         {
@@ -38,7 +38,7 @@ public class ParkourController : MonoBehaviour
         }
     }
 
-    IEnumerator DoParkourAction(ParkourAction action)
+    IEnumerator DoParkourAction(ParkourAction action) // player looses control and the parkour action is played
     {
         inAction = true;
         playerController.SetControl(false);
@@ -46,7 +46,7 @@ public class ParkourController : MonoBehaviour
         animator.CrossFade(action.AnimName, 0.2f);
         yield return null;
     
-        var animState = animator.GetNextAnimatorStateInfo(0);
+        var animState = animator.GetNextAnimatorStateInfo(0); // Checking if the correct animation is played
         if (!animState.IsName(action.AnimName))
             Debug.LogError("The parkour animation is wrong!");
         
@@ -56,7 +56,7 @@ public class ParkourController : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            if (action.RotateToObstacle)
+            if (action.RotateToObstacle) // Ensaures that the action is performed facing the object, will rotate player to face the correct direction
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, action.TargetRotation, playerController.RotationSpeed + Time.deltaTime);
             
                 if (action.EnableTargetMatching)
@@ -68,13 +68,13 @@ public class ParkourController : MonoBehaviour
             yield return null;
         }
 
-       yield return new  WaitForSeconds(action.PostActionDelay);
+       yield return new  WaitForSeconds(action.PostActionDelay); // Delay the player from moving until the animation is complete
        
         playerController.SetControl(true);
         inAction = false;
     }
 
-    void MatchTarget(ParkourAction action)
+    void MatchTarget(ParkourAction action) // Enuring that the animation matches the object and that the correct body part is the contact point for the animation
     {
         var animState = animator.GetCurrentAnimatorStateInfo(0);
         if (animator.isMatchingTarget || animState.IsTag("Transition")) return;

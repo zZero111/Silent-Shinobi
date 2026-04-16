@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] Transform followTarget;
+    [SerializeField] Transform followTarget; // Controls the players 3rd person camers max DIS,ROT, and angles
 
     [SerializeField] float rotationSpeed = 2f;
     [SerializeField] float distance = 5;
@@ -17,13 +17,13 @@ public class CameraController : MonoBehaviour
     float rotationX;
     float rotationY;
 
-    private void Start()
+    private void Start() // Locks the cursor to the game
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
     
-    private void Update()
+    private void Update() // takes the Mouses X,Y and times it with the rotation speed and locks the camera so it rotates around the players centre point
     {
         rotationX += Input.GetAxis("Mouse Y") * rotationSpeed;
         rotationX = Mathf.Clamp(rotationX, minVerticalAngle, maxVerticalAngle);

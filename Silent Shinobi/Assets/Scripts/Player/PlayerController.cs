@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
         var moveDir = cameraController.PlanarRotation * moveInput;
 
-        if(!hasControl)
+        if(!hasControl) // Checking if the player is on the ground and increases Y speed the longer they are falling
             return;
         
         GroundCheck();
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            ySpeed += Physics.gravity.y * Time.deltaTime;
+            ySpeed += Physics.gravity.y * Time.deltaTime; // Gives the player gravity
         }
         var velocity = moveDir * moveSpeed;
         velocity.y = ySpeed;
@@ -78,14 +78,14 @@ public class PlayerController : MonoBehaviour
         this.hasControl = hasControl;
         characterController.enabled = hasControl;
 
-        if (!hasControl)
+        if (!hasControl) // Player can't move when the animation is playing 
         {
             animator.SetFloat("moveAmount", 0f);
             targetRotation = transform.rotation;
         }
     }
     
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected() // Visuaizasion of the ground Checker
     {
         Gizmos.color = new Color(0, 1, 0, 0.5f);
         Gizmos.DrawSphere(transform.TransformPoint(groundCheckOffset), groundCheckRadius);
